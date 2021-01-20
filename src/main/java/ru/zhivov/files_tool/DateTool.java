@@ -1,4 +1,4 @@
-package ru.zhivov.file_tool;
+package ru.zhivov.files_tool;
 
 import java.text.DateFormat;
 import java.text.ParseException;

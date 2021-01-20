@@ -1,4 +1,4 @@
-package ru.zhivov.file_tool;
+package ru.zhivov.files_tool;
 
 import ru.zhivov.web_tool.DataChecker;
 import ru.zhivov.web_tool.HtmlTool;
@@ -41,8 +41,9 @@ public class FileManager implements WebToolConst {
         String strFromFile = "";
         //читаем файл и складываем прочитанное в стрингу
         try (FileReader reader = new FileReader(file)) {
-            char[] buffer = new char[16];
-            reader.read(buffer);
+            char[] buffer = new char[10];
+            //реализовано для исключения варнинга
+            int read = reader.read(buffer);
             strFromFile = String.valueOf(buffer).trim();
         } catch (IOException e) {
             System.out.println("Файл не найден " + dateFileName);
@@ -72,7 +73,7 @@ public class FileManager implements WebToolConst {
 
 
     //метод сохранения реестра csv
-    public void saveDocCsv() {
+    public String saveDocCsv() {
         if (dateTool.doMacth()) {
             try {
                 //создали коннект
@@ -91,7 +92,9 @@ public class FileManager implements WebToolConst {
                 System.out.println("Загружаю csv, файл - " + csvFileName);
 
                 //записываем дату текущего изменения в файл
-                setDateFromFile();
+                //закоментировано для отладки
+                //todo раскоментировать
+                //setDateFromFile();
             } catch (IOException e) {
                 System.out.println("Невозможно записать документ");
                 System.out.println("Проверьте наличие директории data");
@@ -101,7 +104,8 @@ public class FileManager implements WebToolConst {
             System.out.println("Загрузка не требуется");
             doExit();
         }
-
+        //возвращаем путь и имя файла
+        return csvFileName;
     }
 
     private void doExit() {
