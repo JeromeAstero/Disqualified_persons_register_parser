@@ -5,7 +5,7 @@ public class DataChecker implements WebToolConst {
     private static String reg_doc_link = "^htt(p|ps)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
 
-    protected static Boolean doMatch(String value, String webToolConst) {
+    public static Boolean doMatch(String value, String webToolConst) {
         switch (webToolConst) {
             case DOC_LINK:
                 return value.matches(reg_doc_link);

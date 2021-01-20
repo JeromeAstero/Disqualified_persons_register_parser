@@ -25,10 +25,11 @@ public class HtmlTool implements WebToolConst {
     private final String searchingTableHtmlClass = "table[class=border_table]";
 
     public HtmlTool() {
+        System.out.println("<<<ПОЛУЧЕНИЕ ДАННЫХ С URL НАЧАТО>>>");
         data = new HashMap<>(dataCapacity);
     }
 
-    //метод получения нужных элеметнов для дальнейшей работы
+    //метод получения нужных элеметнов HTML для дальнейшей работы
     //метод приватный, т.к. используется исключительно в скопе этого класса
     private Elements connectAndGetElementsTable() {
         try {
@@ -155,6 +156,7 @@ public class HtmlTool implements WebToolConst {
             System.out.println("Проверьте корректность аргументов поиска таблицы внутри HTML документа " + "'" + searchingTableHtmlClass + "'");
             doExit();
         }
+        System.out.println("<<<ПОЛУЧЕНИЕ ДАННЫХ С URL ЗАВЕРШЕНО>>>");
         return data;
     }
 
