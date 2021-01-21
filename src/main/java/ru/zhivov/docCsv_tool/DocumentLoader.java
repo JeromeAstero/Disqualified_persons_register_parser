@@ -19,13 +19,10 @@ public class DocumentLoader {
 
     public DocumentLoader() {
         this.documentFile = new FileManager().saveDocCsv();
-        //иницилизируем лист сразу с объемом 10'000Ю
-        //т.к. операция автоматического увеличинеия объема дорогая
-        this.rowsFromFile = new ArrayList<>(10000);
+        this.rowsFromFile = new ArrayList<>();
     }
 
     //метод загрузки данных csv в память приложения
-    //todo изменить модификтор доступа метода на private для дальнейшей разработки
     public List<Row> getRowsFromCsv() {
         try {
             File file = new File(documentFile);
@@ -43,10 +40,6 @@ public class DocumentLoader {
 
             //записываем данные в лист
             rowsFromFile = build.parse();
-
-            //отадочная инфа
-            Row row = rowsFromFile.get(9475);
-            System.out.println(row);
 
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден " + documentFile);
