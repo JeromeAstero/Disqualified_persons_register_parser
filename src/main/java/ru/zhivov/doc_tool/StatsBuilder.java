@@ -1,4 +1,4 @@
-package ru.zhivov.docCsv_tool;
+package ru.zhivov.doc_tool;
 
 import ru.zhivov.beans.Row;
 
@@ -23,21 +23,20 @@ public class StatsBuilder {
         this.csvRows = new DocumentLoader().getRowsFromCsv();
         this.topTenAdministrativeCodes = new LinkedHashMap<>(10);
 
-        getTotal();
-        getUniqFl();
-        getUniqUl();
-        getTopTenAdministrativeCodes();
+        setTotal();
+        setUniqFl();
+        setUniqUl();
+        setTopTenAdministrativeCodes();
 
-        printStats();
     }
 
     //общее колво строк(без шапки)
-    private void getTotal() {
+    private void setTotal() {
         total = (long) csvRows.size();
     }
 
     //уникальное количество ФЛ
-    private void getUniqFl() {
+    private void setUniqFl() {
         Set<String> uniqData = new HashSet<>();
         for (Row row :
                 csvRows) {
@@ -47,7 +46,7 @@ public class StatsBuilder {
     }
 
     //уникальное количество ЮЛ
-    private void getUniqUl() {
+    private void setUniqUl() {
         Set<String> uniqData = new HashSet<>();
         for (Row row :
                 csvRows) {
@@ -57,7 +56,7 @@ public class StatsBuilder {
     }
 
     //топ 10 статей КоАП, по количеству нарушений
-    private void getTopTenAdministrativeCodes() {
+    private void setTopTenAdministrativeCodes() {
         HashMap<String, Integer> administrativeCodesCounter = new HashMap<>();
         //проходим по объектам строк csv
         for (Row row
@@ -92,20 +91,19 @@ public class StatsBuilder {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (c1, c2) -> c1, LinkedHashMap::new));
     }
 
-    //выводит статистику в консоль
-    private void printStats() {
-        System.out.println("<<<Статистика>>>");
-
-        System.out.println("Общее количество строк(без шапки) - " + total);
-        System.out.println("Уникальное количество ФЛ - " + uniqFl);
-        System.out.println("Уникальное количество ЮЛ - " + uniqUl);
-
-        System.out.println("<<<Топ 10 статей КоАП>>>");
-        for (Map.Entry<String, Integer> entry : topTenAdministrativeCodes.entrySet()) {
-            System.out.println(
-                    "Статья " + entry.getKey() + "; кол-во вхождений " + entry.getValue()
-            );
-        }
+    public Long getTotal() {
+        return total;
     }
 
+    public Long getUniqFl() {
+        return uniqFl;
+    }
+
+    public Long getUniqUl() {
+        return uniqUl;
+    }
+
+    public LinkedHashMap<String, Integer> getTopTenAdministrativeCodes() {
+        return topTenAdministrativeCodes;
+    }
 }

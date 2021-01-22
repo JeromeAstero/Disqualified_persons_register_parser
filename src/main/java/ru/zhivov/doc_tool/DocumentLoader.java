@@ -1,4 +1,4 @@
-package ru.zhivov.docCsv_tool;
+package ru.zhivov.doc_tool;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;

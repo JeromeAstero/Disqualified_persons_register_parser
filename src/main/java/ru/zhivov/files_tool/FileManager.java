@@ -19,11 +19,16 @@ public class FileManager implements WebToolConst {
     private String dateFromFile;
     private DateTool dateTool;
 
+    //константа основной директории
+    private final String mainDir = "data/";
     //константа с имененм документа csv
-    private final String csvFileName = "data/document.csv";
+    private final String csvFileName = mainDir + "document.csv";
+    //константа с именем документа json
+    private final String jsonFileName = mainDir + "statistic.json";
+
 
     //указываем путь и имя файла в котором хранится запись последнего обновления реестра
-    private final String dateFileName = "data/last_update_register.txt";
+    private final String dateFileName = mainDir + "last_update_register.txt";
 
     //в конструкторе присвоим данные для всех рабочих объектов
     public FileManager() {
@@ -33,6 +38,11 @@ public class FileManager implements WebToolConst {
         this.actualDate = data.get(ACTUAL_DATE);
         this.dateFromFile = getDateFromFile();
         this.dateTool = new DateTool(editDate, actualDate, dateFromFile);
+    }
+
+    //for save json
+    public FileManager(int i) {
+
     }
 
     //получаем дату последнего изменения из файла
@@ -61,7 +71,7 @@ public class FileManager implements WebToolConst {
     }
 
     //записываем дату последнего изменения в файл
-    private void setDateFromFile() {
+    private void setDateToFile() {
         File file = new File(dateFileName);
         try (FileWriter fileWriter = new FileWriter(file, false)) {
             fileWriter.write(editDate);
@@ -89,15 +99,14 @@ public class FileManager implements WebToolConst {
 
                 System.out.println("Дата предыдущего изменения реестра " + dateFromFile);
                 System.out.println("Дата текущего изменения реестра " + editDate);
-                System.out.println("Загружаю csv, файл - " + csvFileName);
+                System.out.println("Загружен csv, файл - " + csvFileName);
 
                 //записываем дату текущего изменения в файл
                 //закоментировано для отладки
-                //todo раскоментировать
-                //setDateFromFile();
+                setDateToFile();
             } catch (IOException e) {
                 System.out.println("Невозможно записать документ");
-                System.out.println("Проверьте наличие директории data");
+                System.out.println("Проверьте наличие директории " + mainDir);
             }
         } else {
             System.out.println("Документ не был изменен");
@@ -106,6 +115,17 @@ public class FileManager implements WebToolConst {
         }
         //возвращаем путь и имя файла
         return csvFileName;
+    }
+
+    public void saveJson(String json) {
+        File file = new File(jsonFileName);
+        try (FileWriter fileWriter = new FileWriter(file, false)) {
+            fileWriter.write(json);
+            System.out.println("Файл " + jsonFileName + " записан успешно");
+        } catch (IOException e) {
+            System.out.println("Запись невозможна");
+            System.out.println("Файл не найден " + jsonFileName);
+        }
     }
 
     private void doExit() {
