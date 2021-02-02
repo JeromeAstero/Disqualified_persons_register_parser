@@ -102,7 +102,6 @@ public class FileManager implements WebToolConst {
                 System.out.println("Загружен csv, файл - " + csvFileName);
 
                 //записываем дату текущего изменения в файл
-                //закоментировано для отладки
                 setDateToFile();
             } catch (IOException e) {
                 System.out.println("Невозможно записать документ");
@@ -117,7 +116,7 @@ public class FileManager implements WebToolConst {
         return csvFileName;
     }
 
-    public void saveJson(String json) {
+    public String saveJson(String json) {
         File file = new File(jsonFileName);
         try (FileWriter fileWriter = new FileWriter(file, false)) {
             fileWriter.write(json);
@@ -126,6 +125,7 @@ public class FileManager implements WebToolConst {
             System.out.println("Запись невозможна");
             System.out.println("Файл не найден " + jsonFileName);
         }
+        return jsonFileName;
     }
 
     private void doExit() {

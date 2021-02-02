@@ -26,7 +26,7 @@ public class JsonBuilder {
         this.topTenAdministrativeCodes = statsBuilder.getTopTenAdministrativeCodes();
     }
 
-    public void buildAndSaveStatsJson() {
+    public String buildAndSaveStatsJson() {
 
         //Создаем объект json
         JSONObject jsonObject = new JSONObject();
@@ -52,7 +52,7 @@ public class JsonBuilder {
         System.out.println("Построение json завершено");
 
         //сохраним файл в фс
-        new FileManager(1).saveJson(jsonObject.toString(4));
+        return new FileManager(1).saveJson(jsonObject.toString(4));
 
     }
 }
