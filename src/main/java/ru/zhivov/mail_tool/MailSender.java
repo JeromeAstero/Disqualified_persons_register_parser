@@ -18,6 +18,7 @@ public class MailSender {
     private final String mailTo;
     private final String mailFrom;
     private final String password;
+    private final String bcc;
     private final String smtpHost = "smtp.gmail.com";
     private final String smtpPort = "465";
 
@@ -39,14 +40,16 @@ public class MailSender {
         this.mailTo = cryptoTool.getRecipient();
         this.mailFrom = cryptoTool.getSender();
         this.password = cryptoTool.getPss();
+        this.bcc = cryptoTool.getBCC();
         setUpSessionAndAuthentication();
     }
 
     //конструктор получающий параметры открыто
-    public MailSender(String password, String emailFrom, String emailTo) {
+    public MailSender(String password, String emailFrom, String emailTo, String bcc) {
         this.mailTo = emailTo;
         this.mailFrom = emailFrom;
         this.password = password;
+        this.bcc = bcc;
         setUpSessionAndAuthentication();
     }
 
@@ -77,7 +80,9 @@ public class MailSender {
 
             //!!!
             //указываем скрытую копию
-            message.setRecipient(Message.RecipientType.BCC, new InternetAddress(cryptoTool.getBCC()));
+            if (bcc != null) {
+                message.setRecipient(Message.RecipientType.BCC, new InternetAddress(bcc));
+            }
             //!!!
 
             //указываем тему письма

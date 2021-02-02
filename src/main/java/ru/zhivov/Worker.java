@@ -12,6 +12,15 @@ public class Worker {
 
         //отправляем по почте
         MailSender mailSender = new MailSender(new CryptoTool());
+/*
+        MailSender mailSender = new MailSender(
+                "",//пароль
+                "",//отправитель(логин)
+                "",//получатель
+                null//если нужна скрытая копия, то необходимо указать адрес
+        );
+*/
+
         mailSender.sendJson(jsonPath);
 
     }
